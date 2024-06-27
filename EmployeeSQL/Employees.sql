@@ -1,48 +1,3 @@
-CREATE TABLE "departments" (
-    "dept_no" VARCHAR(20)   NOT NULL,
-    "dept_name" VARCHAR(50)   NOT NULL,
-    CONSTRAINT "pk_departments" PRIMARY KEY (
-        "dept_no"
-     )
-);
-
-CREATE TABLE "dept_emp" (
-    "emp_no" INTEGER   NOT NULL,
-    "dept_no" VARCHAR(50)   NOT NULL
-);
-
-CREATE TABLE "dept_manager" (
-    "dept_no" VARCHAR(50)   NOT NULL,
-    "emp_no" INTEGER   NOT NULL
-);
-
-CREATE TABLE "employees" (
-    "emp_no" INTEGER   NOT NULL,
-    "emp_title_id" VARCHAR(25)   NOT NULL,
-    "birth_date" date   NOT NULL,
-    "first_name" VARCHAR(50)   NOT NULL,
-    "last_name" VARCHAR(50)   NOT NULL,
-    "sex" VARCHAR(10)   NOT NULL,
-    "hire_date" date   NOT NULL,
-    CONSTRAINT "pk_employees" PRIMARY KEY (
-        "emp_no"
-     )
-);
-
-CREATE TABLE "salaries" (
-    "emp_no" INTEGER   NOT NULL,
-    "salary" INTEGER   NOT NULL
-);
-
-CREATE TABLE "titles" (
-    "title_id" VARCHAR(50)   NOT NULL,
-    "title" VARCHAR(100)   NOT NULL,
-    CONSTRAINT "pk_titles" PRIMARY KEY (
-        "title_id"
-     )
-);
-
-
 -- 1. List the employee number, last name, frist name, sex and salary of each employee
 SELECT e.emp_no, e.last_name, e.first_name, e.sex, s.salary
 FROM employees e
@@ -76,12 +31,13 @@ FROM employees e
 WHERE e.first_name = 'Hercules' AND e.last_name LIKE 'B%';
 
 -- 6. List each employee in the Sales department, including their employee number, last name, and first name.
-SELECT e.first_name, e.last_name, e.emp_no, d.dept_name, de.dept_no
+SELECT e.first_name, e.last_name, e.emp_no
 FROM employees e
 JOIN dept_emp de ON e.emp_no = de.emp_no
 JOIN departments d ON de.dept_no = d.dept_no
 WHERE d.dept_name = 'Sales'
 ORDER BY e.last_name;
+
 
 -- 7. List each employee in the Sales and Development departments, including their employee number, last name, first name, and department name.
 SELECT e.emp_no, e.last_name, e.first_name, d.dept_name
